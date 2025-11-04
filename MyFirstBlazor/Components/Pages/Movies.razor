@@ -1,5 +1,12 @@
 ﻿@page "/movies"
 @inject IApiService ApiService
+@* Add a input type text *@
+<div class="form-group m-2">
+    <label class="form-label">Search:</label>
+    <input @bind-value="searchString" 
+           @bind-value:event="oninput"
+           @bind-value:after="Search" type="text" class="form-control">
+</div>
 @if (movieModels is null)
 {
     <LoadingComponent></LoadingComponent>
@@ -12,9 +19,26 @@ else
     private IEnumerable<MovieModel> movieModels;
     private bool isError;
     private MovieModel newMovie;
+    private string searchString;
     protected async override Task OnInitializedAsync()
     {
         var result = await ApiService.GetAllAsync();
+        if (result.Ok)
+        {
+            movieModels = result.Data;
+        }
+        else
+        {
+            isError = true;
+        }
+    }
+    /*Search movie method*/
+    private async Task Search()
+    {
+        //call the apiservice search method and update movielist
+        movieModels = null;
+        
+        var result = await ApiService.SearchAsync(searchString);
         if (result.Ok)
         {
             movieModels = result.Data;
