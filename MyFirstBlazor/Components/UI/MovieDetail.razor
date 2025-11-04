@@ -1,6 +1,5 @@
-﻿<h3>MovieDetail</h3>
-<div class="col-lg-4 mx-auto">
-    <div class="card" style="width: 18rem;">
+﻿<div class="col col-lg-3 mx-auto">
+    <div class="card">
         <!--tips: add .text-center,.text-right to the .card to change card text alignment-->
         <img src="@MovieModel.ImgPoster" class="card-img-top" alt="...">
         <div class="card-body">
@@ -11,12 +10,19 @@
             <p class="card-text">@MovieModel.Year</p>
             <h6 class="card-subtitle mb-2 text-muted">Rank</h6>
             <p class="card-text">@MovieModel.Rank</p>
-
-            <a class="btn btn-primary">Close</a>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info" @onclick="Close">Close</button>
         </div>
     </div>
 </div>
 @code {
     [Parameter]
     public MovieModel MovieModel { get; set; }
+    [Parameter]
+    public EventCallback<MovieModel> MovieModelChanged { get; set; }
+    private async Task Close()
+    {
+        await MovieModelChanged.InvokeAsync(null);
+    }
 }

@@ -1,17 +1,25 @@
-﻿
-<div class="col col-lg-3 m-2">
-    <div class="card" style="width: 18rem;">
+﻿<div class="col col-lg-3 mb-2">
+    <div class="card">
+        <!--tips: add .text-center,.text-right to the .card to change card text alignment-->
         <img src="@MovieModel.ImgPoster" class="card-img-top" alt="...">
-        <div class="card-body">
+        <div class="card-body h-100">
             <h5 class="card-title">@MovieModel.Title</h5>
-            <button class="btn btn-outline-info">Info</button>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info" @onclick="MovieInfo">Info</button>
         </div>
     </div>
 </div>
-    
-
-
-    @code {
-        [Parameter]
-        public MovieModel MovieModel { get; set; }
+@code {
+    [Parameter]
+    public MovieModel MovieModel { get; set; }
+    [Parameter]
+    public MovieModel SelectedMovieModel { get; set; }
+    [Parameter]
+    public EventCallback<MovieModel> SelectedMovieModelChanged { get; set; }
+    private async Task MovieInfo()
+    {
+        SelectedMovieModel = MovieModel;
+        await SelectedMovieModelChanged.InvokeAsync(SelectedMovieModel);
     }
+}

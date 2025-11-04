@@ -1,13 +1,19 @@
-﻿@* loop over moviemodels ands call MovieCard component *@
-
-
+﻿<h4>Movies</h4>
 <div class="row">
-    @foreach (var movieModel in MovieModels)
+    @if (SelectedModel is null)
     {
-        <MovieCard MovieModel="movieModel"></MovieCard>
+        @foreach (var movie in Movies)
+        {
+            <MovieCard MovieModel="movie" @bind-SelectedMovieModel="SelectedModel"></MovieCard>
+        }
+    }
+    else
+    {
+        <MovieDetail @bind-MovieModel="SelectedModel"></MovieDetail>
     }
 </div>
 @code {
     [Parameter]
-    public IEnumerable<MovieModel> MovieModels { get; set; }
+    public IEnumerable<MovieModel> Movies { get; set; }
+    private MovieModel SelectedModel;
 }
