@@ -1,0 +1,27 @@
+﻿@page "/movies"
+@* inject ApiService *@
+@inject IApiService ApiService
+
+@* call movieList *@
+@if(MovieModels is null)
+{ 
+    <LoadingComponent></LoadingComponent>
+}
+else
+{ 
+    <MovieList MovieModels="MovieModels"></MovieList>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<MovieModel> MovieModels { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        //call the apiservice
+        var result = await ApiService.GetAllAsync();
+        if(result.Ok)
+        {
+            MovieModels = result.Data;
+        }
+    }
+}

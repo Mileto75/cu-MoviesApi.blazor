@@ -1,0 +1,13 @@
+﻿@* loop over moviemodels ands call MovieCard component *@
+
+
+<div class="row">
+    @foreach (var movieModel in MovieModels)
+    {
+        <MovieCard MovieModel="movieModel"></MovieCard>
+    }
+</div>
+@code {
+    [Parameter]
+    public IEnumerable<MovieModel> MovieModels { get; set; }
+}

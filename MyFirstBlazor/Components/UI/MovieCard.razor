@@ -1,0 +1,17 @@
+﻿
+<div class="col col-lg-3 m-2">
+    <div class="card" style="width: 18rem;">
+        <img src="@MovieModel.ImgPoster" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@MovieModel.Title</h5>
+            <button class="btn btn-outline-info">Info</button>
+        </div>
+    </div>
+</div>
+    
+
+
+    @code {
+        [Parameter]
+        public MovieModel MovieModel { get; set; }
+    }

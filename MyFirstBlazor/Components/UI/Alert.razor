@@ -1,0 +1,12 @@
+﻿
+
+<div class="alert alert-@Style" role="alert">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Style { get; set; }
+}
